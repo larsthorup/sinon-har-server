@@ -10,8 +10,8 @@
     root[name] = factory.apply(this, []);
   }
 }(this, 'sinonHarServer', function () {
-  function buildKey (method, url, acceptVersion) {
-    return [method, url, acceptVersion].join(':');
+  function buildKey (method, url, acceptVersion, body) {
+    return [method, url, acceptVersion, body].join(':');
   }
 
   function getHarHeader (headers, name) {
@@ -36,14 +36,16 @@
       var method = exchange.request.method;
       var url = exchange.request.url.href;
       var acceptVersion = getHarHeader(exchange.request.headers, 'accept-version') || '-';
-      var key = buildKey(method, url, acceptVersion);
+      var body = exchange.request.postData ? exchange.request.postData.text : '-';
+      var key = buildKey(method, url, acceptVersion, body);
       responses[key] = exchange.response;
     }
     server.respondWith(function (request) {
       var method = request.method;
       var url = request.url;
       var acceptVersion = getHeader(request.headers, 'accept-version') || '-';
-      var key = buildKey(method, url, acceptVersion);
+      var body = request.body ? JSON.stringify(request.body) : '-';
+      var key = buildKey(method, url, acceptVersion, body);
       var response = responses[key];
       if (response) {
         request.respond(response.status, {}, response.content.text);

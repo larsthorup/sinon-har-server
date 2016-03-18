@@ -26,7 +26,27 @@ describe('sinon-har-server', function () {
             response: { status: 200, content: { text: 'someUrlResponse' } }
           },
           {
-            request: { method: 'POST', url: { href: 'storeThis' }, headers: [ { name: 'accept-version', value: '0.1.0' } ] },
+            request: {
+              method: 'POST',
+              url: { href: 'storeThis' },
+              headers: [
+                { name: 'accept-version', value: '0.1.0' }
+              ],
+              postData: {
+                mimeType: 'application/json',
+                text: '{"data":"somePostData"}'
+              }
+            },
+            response: { status: 200, content: { text: 'success' } }
+          },
+          {
+            request: {
+              method: 'DELETE',
+              url: { href: 'some-id' },
+              headers: [
+                { name: 'some-other-header', value: 'some-value' }
+              ]
+            },
             response: { status: 200, content: { text: 'success' } }
           }
         ]
@@ -44,13 +64,14 @@ describe('sinon-har-server', function () {
     response.should.deep.equal([200, {}, 'someUrlResponse']);
   });
 
-  it('should match on accept-version header', function () {
+  it('should match on accept-version header and request body', function () {
     var response = request({
       method: 'POST',
       url: 'storeThis',
       headers: {
         'accept-version': '0.1.0'
-      }
+      },
+      body: {data: 'somePostData'}
     });
     response.should.deep.equal([200, {}, 'success']);
   });
@@ -76,7 +97,20 @@ describe('sinon-har-server', function () {
       url: 'storeThis',
       headers: {
         'accept-version': '0.2.0'
-      }
+      },
+      body: {data: 'somePostData'}
+    });
+    response[0].should.equal(404);
+  });
+
+  it('should respond with 404 when request body does not match', function () {
+    var response = request({
+      method: 'POST',
+      url: 'storeThis',
+      headers: {
+        'accept-version': '0.1.0'
+      },
+      body: {data: 'someDifferentPostData'}
     });
     response[0].should.equal(404);
   });
