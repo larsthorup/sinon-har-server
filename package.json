@@ -1,0 +1,36 @@
+{
+  "name": "sinon-har-server",
+  "version": "0.1.0",
+  "description": "Auto mocks your server from a recorded .har file. Don't let your mocks lie to you!",
+  "main": "sinon-har-server.js",
+  "scripts": {
+    "test": "semistandard && mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/larsthorup/sinon-har-server.git"
+  },
+  "keywords": [
+    "sinon",
+    "http",
+    "fakeServer",
+    "http",
+    "archive",
+    "har"
+  ],
+  "author": "Lars Thorup <lars@zealake.com> (http://github.com/larsthorup)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/larsthorup/sinon-har-server/issues"
+  },
+  "homepage": "https://github.com/larsthorup/sinon-har-server#readme",
+  "files": [
+    "sinon-har-server.js"
+  ],
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^2.4.5",
+    "semistandard": "^7.0.2",
+    "sinon": "^1.17.3"
+  }
+}
