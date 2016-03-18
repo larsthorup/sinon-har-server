@@ -1,22 +1,15 @@
 /* eslint-env node, browser, amd */
 
-(function (root, name, depNames, factory) {
-  var deps = [];
-  var i;
+(function (root, name, factory) {
+  /* istanbul ignore next */
   if (typeof define === 'function' && define.amd) {
-    define(depNames, factory);
+    define([], factory);
   } else if (typeof module === 'object' && module.exports) {
-    for (i = 0; i < depNames.length; ++i) {
-      deps.push(require(depNames[i]));
-    }
-    module.exports = factory.apply(this, deps);
+    module.exports = factory.apply(this, []);
   } else {
-    for (i = 0; i < depNames.length; ++i) {
-      deps.push(root[depNames[i]]);
-    }
-    root[name] = factory.apply(this, deps);
+    root[name] = factory.apply(this, []);
   }
-}(this, 'sinonHarServer', [], function () {
+}(this, 'sinonHarServer', function () {
   function load (server, harFile) {
     var responses = {};
     var traffic = harFile.log.entries;
