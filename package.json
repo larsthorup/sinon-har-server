@@ -1,6 +1,6 @@
 {
   "name": "sinon-har-server",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Auto mocks your server from a recorded .har file. Don't let your mocks lie to you!",
   "main": "sinon-har-server.js",
   "scripts": {

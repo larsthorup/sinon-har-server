@@ -30,7 +30,8 @@ describe('sinon-har-server', function () {
               method: 'POST',
               url: { href: 'storeThis' },
               headers: [
-                { name: 'accept-version', value: '0.1.0' }
+                { name: 'accept-version', value: '0.1.0' },
+                { name: 'authorization', value: 'validAuth' }
               ],
               postData: {
                 mimeType: 'application/json',
@@ -64,14 +65,15 @@ describe('sinon-har-server', function () {
     response.should.deep.equal([200, {}, 'someUrlResponse']);
   });
 
-  it('should match on accept-version header and request body', function () {
+  it('should match on accept-version header, authorization and request body', function () {
     var response = request({
       method: 'POST',
       url: 'storeThis',
-      headers: {
-        'accept-version': '0.1.0'
+      requestHeaders: {
+        'Accept-Version': '0.1.0',
+        'Authorization': 'validAuth'
       },
-      body: {data: 'somePostData'}
+      requestBody: '{"data":"somePostData"}'
     });
     response.should.deep.equal([200, {}, 'success']);
   });
@@ -81,7 +83,7 @@ describe('sinon-har-server', function () {
       method: 'POST',
       url: 'someUrl'
     });
-    response.should.deep.equal([404, {}, '{"message":"Not Found"}']);
+    response.should.deep.equal([404, {}, '{"message":"Not Found: POST:someUrl:-:-:-"}']);
   });
 
   it('should respond with 404 when url does not match', function () {
@@ -95,10 +97,11 @@ describe('sinon-har-server', function () {
     var response = request({
       method: 'POST',
       url: 'storeThis',
-      headers: {
-        'accept-version': '0.2.0'
+      requestHeaders: {
+        'Accept-Version': '0.2.0',
+        'Authorization': 'validAuth'
       },
-      body: {data: 'somePostData'}
+      requestBody: '{"data":"somePostData"}'
     });
     response[0].should.equal(404);
   });
@@ -107,10 +110,24 @@ describe('sinon-har-server', function () {
     var response = request({
       method: 'POST',
       url: 'storeThis',
-      headers: {
-        'accept-version': '0.1.0'
+      requestHeaders: {
+        'Accept-Version': '0.1.0',
+        'Authorization': 'validAuth'
       },
-      body: {data: 'someDifferentPostData'}
+      requestBody: {data: 'someDifferentPostData'}
+    });
+    response[0].should.equal(404);
+  });
+
+  it('should respond with 404 when authorization header does not match', function () {
+    var response = request({
+      method: 'POST',
+      url: 'storeThis',
+      requestHeaders: {
+        'Accept-Version': '0.1.0',
+        'Authorization': 'invalidAuth'
+      },
+      requestBody: '{"data":"somePostData"}'
     });
     response[0].should.equal(404);
   });
