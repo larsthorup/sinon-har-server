@@ -32,8 +32,8 @@
     "chai": "^3.5.0",
     "coveralls": "^2.11.9",
     "istanbul": "^0.4.3",
-    "mocha": "^2.4.5",
-    "semistandard": "^8.0.0",
+    "mocha": "^3.1.2",
+    "semistandard": "^9.1.0",
     "sinon": "^1.17.3"
   }
 }
