@@ -52,7 +52,7 @@
       if (response) {
         request.respond(response.status, {}, response.content.text);
       } else {
-        request.respond(404, {}, JSON.stringify({message: 'Not Found: ' + key}));
+        request.respond(404, {}, JSON.stringify({ message: 'Not Found: ' + key }));
       }
     });
   }

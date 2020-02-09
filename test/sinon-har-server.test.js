@@ -71,7 +71,7 @@ describe('sinon-har-server', function () {
       url: 'storeThis',
       requestHeaders: {
         'Accept-Version': '0.1.0',
-        'Authorization': 'validAuth'
+        Authorization: 'validAuth'
       },
       requestBody: '{"data":"somePostData"}'
     });
@@ -99,7 +99,7 @@ describe('sinon-har-server', function () {
       url: 'storeThis',
       requestHeaders: {
         'Accept-Version': '0.2.0',
-        'Authorization': 'validAuth'
+        Authorization: 'validAuth'
       },
       requestBody: '{"data":"somePostData"}'
     });
@@ -112,9 +112,9 @@ describe('sinon-har-server', function () {
       url: 'storeThis',
       requestHeaders: {
         'Accept-Version': '0.1.0',
-        'Authorization': 'validAuth'
+        Authorization: 'validAuth'
       },
-      requestBody: {data: 'someDifferentPostData'}
+      requestBody: { data: 'someDifferentPostData' }
     });
     response[0].should.equal(404);
   });
@@ -125,7 +125,7 @@ describe('sinon-har-server', function () {
       url: 'storeThis',
       requestHeaders: {
         'Accept-Version': '0.1.0',
-        'Authorization': 'invalidAuth'
+        Authorization: 'invalidAuth'
       },
       requestBody: '{"data":"somePostData"}'
     });

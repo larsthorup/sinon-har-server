@@ -4,7 +4,8 @@
   "description": "Auto mocks your server from a recorded .har file. Don't let your mocks lie to you!",
   "main": "sinon-har-server.js",
   "scripts": {
-    "test": "semistandard && istanbul --config=test/istanbul.conf.js cover node_modules/mocha/bin/_mocha",
+    "lint": "semistandard",
+    "test": "semistandard && nyc --nycrc-path=test/nyc.conf.js node_modules/mocha/bin/_mocha",
     "travis": "npm test && coveralls < output/coverage/lcov.info"
   },
   "repository": {
@@ -29,11 +30,11 @@
     "sinon-har-server.js"
   ],
   "devDependencies": {
-    "chai": "^3.5.0",
-    "coveralls": "^2.11.9",
-    "istanbul": "^0.4.3",
-    "mocha": "^3.1.2",
-    "semistandard": "^9.1.0",
-    "sinon": "^1.17.3"
+    "chai": "^4.2.0",
+    "coveralls": "^3.0.9",
+    "mocha": "^7.0.1",
+    "nyc": "^15.0.0",
+    "semistandard": "^14.2.0",
+    "sinon": "^8.1.1"
   }
 }
