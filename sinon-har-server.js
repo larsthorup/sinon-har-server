@@ -16,8 +16,8 @@
 
   function getHarHeader (headers, name) {
     if (!headers) return null;
-    for (var i = 0; i < headers.length; ++i) {
-      var header = headers[i];
+    for (let i = 0; i < headers.length; ++i) {
+      const header = headers[i];
       if (header.name === name) return header.value;
     }
     return null;
@@ -29,26 +29,26 @@
   }
 
   function load (server, harFile) {
-    var responses = {};
-    var traffic = harFile.log.entries;
-    for (var i = 0; i < traffic.length; ++i) {
-      var exchange = traffic[i];
-      var method = exchange.request.method;
-      var url = exchange.request.url.href;
-      var acceptVersion = getHarHeader(exchange.request.headers, 'accept-version') || '-';
-      var authorization = getHarHeader(exchange.request.headers, 'authorization') || '-';
-      var body = exchange.request.postData ? exchange.request.postData.text : '-';
-      var key = buildKey(method, url, acceptVersion, authorization, body);
+    const responses = {};
+    const traffic = harFile.log.entries;
+    for (let i = 0; i < traffic.length; ++i) {
+      const exchange = traffic[i];
+      const method = exchange.request.method;
+      const url = exchange.request.url.href;
+      const acceptVersion = getHarHeader(exchange.request.headers, 'accept-version') || '-';
+      const authorization = getHarHeader(exchange.request.headers, 'authorization') || '-';
+      const body = exchange.request.postData ? exchange.request.postData.text : '-';
+      const key = buildKey(method, url, acceptVersion, authorization, body);
       responses[key] = exchange.response;
     }
     server.respondWith(function (request) {
-      var method = request.method;
-      var url = request.url;
-      var acceptVersion = getHeader(request.requestHeaders, 'Accept-Version') || '-';
-      var authorization = getHeader(request.requestHeaders, 'Authorization') || '-';
-      var body = request.requestBody ? request.requestBody : '-';
-      var key = buildKey(method, url, acceptVersion, authorization, body);
-      var response = responses[key];
+      const method = request.method;
+      const url = request.url;
+      const acceptVersion = getHeader(request.requestHeaders, 'Accept-Version') || '-';
+      const authorization = getHeader(request.requestHeaders, 'Authorization') || '-';
+      const body = request.requestBody ? request.requestBody : '-';
+      const key = buildKey(method, url, acceptVersion, authorization, body);
+      const response = responses[key];
       if (response) {
         request.respond(response.status, {}, response.content.text);
       } else {

@@ -1,10 +1,10 @@
 /* eslint-env mocha */
 
-var sinon = require('sinon');
-var sinonHarServer = require('../sinon-har-server');
+const sinon = require('sinon');
+const sinonHarServer = require('../sinon-har-server');
 
 describe('sinon-har-server', function () {
-  var responder;
+  let responder;
 
   function request (options) {
     Object.assign(options, {
@@ -15,10 +15,10 @@ describe('sinon-har-server', function () {
   }
 
   beforeEach(function () {
-    var server = {
+    const server = {
       respondWith: sinon.spy()
     };
-    var harFile = {
+    const harFile = {
       log: {
         entries: [
           {
@@ -58,7 +58,7 @@ describe('sinon-har-server', function () {
   });
 
   it('should respond successfully', function () {
-    var response = request({
+    const response = request({
       method: 'GET',
       url: 'someUrl'
     });
@@ -66,7 +66,7 @@ describe('sinon-har-server', function () {
   });
 
   it('should match on accept-version header, authorization and request body', function () {
-    var response = request({
+    const response = request({
       method: 'POST',
       url: 'storeThis',
       requestHeaders: {
@@ -79,7 +79,7 @@ describe('sinon-har-server', function () {
   });
 
   it('should respond with 404 when method does not match', function () {
-    var response = request({
+    const response = request({
       method: 'POST',
       url: 'someUrl'
     });
@@ -87,14 +87,14 @@ describe('sinon-har-server', function () {
   });
 
   it('should respond with 404 when url does not match', function () {
-    var response = request({
+    const response = request({
       url: 'missingUrl'
     });
     response[0].should.equal(404);
   });
 
   it('should respond with 404 when accept-version does not match', function () {
-    var response = request({
+    const response = request({
       method: 'POST',
       url: 'storeThis',
       requestHeaders: {
@@ -107,7 +107,7 @@ describe('sinon-har-server', function () {
   });
 
   it('should respond with 404 when request body does not match', function () {
-    var response = request({
+    const response = request({
       method: 'POST',
       url: 'storeThis',
       requestHeaders: {
@@ -120,7 +120,7 @@ describe('sinon-har-server', function () {
   });
 
   it('should respond with 404 when authorization header does not match', function () {
-    var response = request({
+    const response = request({
       method: 'POST',
       url: 'storeThis',
       requestHeaders: {
