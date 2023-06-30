@@ -5,8 +5,7 @@
   "main": "sinon-har-server.js",
   "scripts": {
     "lint": "semistandard",
-    "test": "semistandard && nyc --nycrc-path=test/nyc.conf.js node_modules/mocha/bin/_mocha",
-    "travis": "npm test && coveralls < output/coverage/lcov.info"
+    "test": "semistandard && nyc --nycrc-path=test/nyc.conf.js node_modules/mocha/bin/_mocha"
   },
   "repository": {
     "type": "git",
@@ -31,7 +30,6 @@
   ],
   "devDependencies": {
     "chai": "^4.2.0",
-    "coveralls": "^3.0.9",
     "mocha": "^9.1.1",
     "nyc": "^15.0.0",
     "semistandard": "^16.0.1",
